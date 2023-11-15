@@ -1,0 +1,1 @@
+# auth_django_test

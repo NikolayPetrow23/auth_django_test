@@ -1,5 +1,3 @@
-from smtplib import SMTPException
-
 from django.db import transaction
 from rest_framework import serializers
 

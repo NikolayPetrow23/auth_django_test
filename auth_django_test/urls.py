@@ -21,7 +21,7 @@ from drf_yasg.views import get_schema_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls', namespace='users')),
+    path('api/v1/users/', include('users.urls', namespace='users')),
 ]
 
 

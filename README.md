@@ -7,6 +7,10 @@
 
 ### Проект находится по адресу: https://testauth.ddns.net/
 
+### Документация проекта: swagger - https://testauth.ddns.net/swagger/
+
+### Документация проекта openapi - https://testauth.ddns.net/redoc/
+
 ### Технологии
 - **Python - 3.9**
 - **Django - 4.2.7**

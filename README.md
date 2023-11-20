@@ -62,12 +62,55 @@ python manage.py runserver
 python manage.py createsuperuser
 ```
 
+## Развертывание проекта на сервера
+
+### Клонирование репозитория на сервер:
+```bash
+git clone git@github.com:NikolayPetrow23/auth_django_test.git
+```
+
+### Нужно сделать внешний файл конфигурации nginx:
+```
+# Пример есть в репозитории
+# Так же нужно установить сербот для получения сертификата такими командами:
+sudo apt install snapd
+
+# Установка и обновление зависимостей для пакетного менеджера snap.
+sudo snap install core; sudo snap refresh core
+# При успешной установке зависимостей в терминале выведется:
+# core 16-2.58.2 from Canonical✓ installed 
+
+# Установка пакета certbot.
+sudo snap install --classic certbot
+# При успешной установке пакета в терминале выведется:
+# certbot 2.3.0 from Certbot Project (certbot-eff✓) installed
+
+# Создание ссылки на certbot в системной директории,
+# чтобы у пользователя с правами администратора был доступ к этому пакету.
+sudo ln -s /snap/bin/certbot /usr/bin/certbot 
+
+# Запуск сербота
+sudo certbot --nginx 
+
+# Домен можно взять на этой площадке: https://my.noip.com/
+```
+
+### В корневной папке проекта сбилдить и установить все зависимости и контейнеры:
+```bash
+docker-compose build
+```
+
+### Запустить контейнеры:
+```bash
+docker-compose up
+```
+
 ## Примеры запросов и ответов к API
 
 ### Регистрация
 #### Endpoint
 ```
-POST  /users/signup/
+POST  /api/v1/users/signup/
 ```
 #### Пример запроса
 ```
@@ -95,7 +138,7 @@ POST  /users/signup/
 ### Подтвердить почту
 #### Endpoint
 ```
-POST  /users/email_verification/
+POST  /api/v1/users/email_verification/
 ```
 
 #### Пример запроса 
@@ -116,7 +159,7 @@ POST  /users/email_verification/
 ### Аутентификация
 #### Endpoint
 ```
-POST  users/token/
+POST  /api/v1users/token/
 ```
 
 #### Пример запроса 
@@ -138,7 +181,7 @@ POST  users/token/
 ### Узнать свои данные
 #### Endpoint.
 ```
-GET  /users/me/
+GET  /api/v1/users/me/
 ```
 
 #### Пример ответа
@@ -153,7 +196,7 @@ GET  /users/me/
 ### Изменить свои данные
 #### Endpoint
 ```
-PATCH  /users/me/
+PATCH  /api/v1/users/me/
 ```
 
 #### Пример запроса.
@@ -175,7 +218,7 @@ PATCH  /users/me/
 ### Удалить свою учетную запись
 #### Endpoint
 ```
-DELETE  /users/me/
+DELETE  /api/v1/users/me/
 ```
 
 #### Пример ответа.
@@ -188,7 +231,7 @@ DELETE  /users/me/
 ### Обновление токена
 #### Endpoint
 ```
-POST /token/refresh/
+POST /api/v1/token/refresh/
 ```
 
 #### Пример запроса.
@@ -208,7 +251,7 @@ POST /token/refresh/
 ### Проверка токена
 #### Endpoint
 ```
-POST /token/verify/
+POST /api/v1/token/verify/
 ```
 
 #### Пример запроса.

@@ -7,7 +7,7 @@ from django.utils.timezone import now
 
 class User(AbstractUser):
     """
-    Кастомная модель пользователя.
+    Custom user model.
     """
     email = models.EmailField(unique=True)
     is_verified_email = models.BooleanField(default=False)
@@ -15,7 +15,7 @@ class User(AbstractUser):
 
 class OTP(models.Model):
     """
-    Модель отношения один-ко-дному OTP-кода и модели пользователей.
+    A one-to-one relationship model of the OTP code and the user model.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     otp_code = models.CharField(max_length=6)
@@ -26,8 +26,8 @@ class OTP(models.Model):
         return f'EmailVerification object for {self.user.email}'
 
     def send_verification_email(self):
-        subject = f'Подтверждение учетной записи для {self.user.username}!'
-        message = f'Для подтверждения учетной записи {self.user.username} введите код: {self.otp_code}'
+        subject = f'Account confirmation for {self.user.username}!'
+        message = f'To confirm your account {self.user.username} enter the code: {self.otp_code}'
         send_mail(
             subject=subject,
             message=message,

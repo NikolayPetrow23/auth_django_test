@@ -15,7 +15,7 @@ from users.serializers import SignUpUserSerializer, UserSerializer, EmailVerific
 
 class SignUpViewSet(viewsets.ModelViewSet):
     """
-    Вьюсет регистрации пользователей.
+    User registration viewset.
     """
     queryset = User.objects.all()
     http_method_names = ('post',)
@@ -24,8 +24,8 @@ class SignUpViewSet(viewsets.ModelViewSet):
 
 class UserViewSet(APIView):
     """
-    Вьюсет для просмотра, удаления и изменения данных пользователя.
-    Пользвователь может просматривать, изменять и удалять только свои данные.
+    A viewset for viewing, deleting, and changing user data.
+    The user can view, change and delete only their own data.
     """
     http_method_names = ('get', 'patch', 'delete')
     serializer_class = UserSerializer
@@ -40,7 +40,7 @@ class UserViewSet(APIView):
         user_id = self.request.user.id
         user = get_object_or_404(User, id=user_id)
         user.delete()
-        return Response({'detail': 'Учетная запись была успешно удалена!'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail': 'The account was successfully deleted!'}, status=status.HTTP_204_NO_CONTENT)
 
     def patch(self, request: Request) -> Response:
         user = self.request.user
@@ -61,7 +61,7 @@ class UserViewSet(APIView):
 
 class EmailVerificationAPIView(APIView):
     """
-    Апивью для подвтверждения почты с OTP-кодом отправленным пользователю на почту.
+    An apiview for confirming mail with an OTP code sent to the user by mail.
     """
     http_method_names = ('post',)
     serializer_class = EmailVerificationSerializer
@@ -69,15 +69,15 @@ class EmailVerificationAPIView(APIView):
     def post(self, request, *args, **kwargs) -> Response:
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid() and serializer.validate_code():
-            return Response({'detail': 'Почта успешно подтверждена!'}, status=status.HTTP_200_OK)
+            return Response({'detail': 'Mail has been successfully confirmed!'}, status=status.HTTP_200_OK)
         else:
-            return Response({'detail': 'Введите правильные данные!'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Enter the correct data!'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     """
-    Измененный вариант TokenObtainPairView для того, чтобы токен
-    мог получить только пользователь у которого подтверждена почта.
+    Modified version of TokenObtainPairView in order for the token
+    could only be received by a user whose mail is confirmed.
     """
     def post(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
@@ -90,9 +90,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             raise InvalidToken(e.args[0])
 
         except ObjectDoesNotExist:
-            return Response({'detail': 'Укажите username!'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Specify username!'}, status=status.HTTP_400_BAD_REQUEST)
 
         if user.is_verified_email:
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-        return Response({'detail': 'Сначала нужно подтвердить почту!'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'detail': 'First you need to confirm your email!'}, status=status.HTTP_400_BAD_REQUEST)

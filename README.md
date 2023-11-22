@@ -1,153 +1,153 @@
 
-## Описание
-Тестовое задание.
+## Description
+Test task.
 
-### О проекте
-Проект, представляет собой систему регистрации, аутентификации и авторизации.
+### About the project
+The project is a system of registration, authentication and authorization.
 
-### Проект находится по адресу: https://testauth.ddns.net/
+### The project is located at: https://testauth.ddns.net/
 
-### Документация проекта: swagger - https://testauth.ddns.net/swagger/
+### Project documentation: swagger - https://testauth.ddns.net/swagger/
 
-### Документация проекта openapi - https://testauth.ddns.net/redoc/
+### Openapi project documentation - https://testauth.ddns.net/redoc/
 
-### Технологии
+### Technologies
 - **Python - 3.9**
 - **Django - 4.2.7**
 - **DRF - 3.14.0**
 - **PostgreSQL - 15.1**
 
-### Автор
+### Author
 - [Николай Петров](https://github.com/NikolayPetrow23)
 
-## Для запуска проекта вам понадобится:
+## To start the project, you will need:
 
-### Клонирование репозитория:
+### Cloning the repository:
 
 ```bash
 git clone git@github.com:NikolayPetrow23/auth_django_test.git
 ```
 
-### Cоздать и активировать виртуальное окружение:
+### Create and activate a virtual environment:
 ```
 python -m venv venv
 
-# Если у вас Linux/macOS
+# If you have Linux/macOS
 
     source venv/bin/activate
 
-# Если у вас windows
+# If you have windows
 
     source venv/scripts/activate
 
 ```
-### Установить зависимости из файла requirements.txt:
+### Install dependencies from a file requirements.txt:
 ```
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Создание БД PostgreSQL с помощью Docker:
+### Creating a PostgreSQL database using Docker:
 ```bash
-docker run -p 5432:5432 --name "Имя вашей БД" -e POSTGRES_USER="Введите пользователя для БД" -e POSTGRES_PASSWORD="Введите пароль для БД" -e POSTGRES_DB="Имя вашей БД" -d postgres:13.3
+docker run -p 5432:5432 --name "Name of your database" -e POSTGRES_USER="Enter the user for the database" -e POSTGRES_PASSWORD="Enter the password for the database" -e POSTGRES_DB="Name of your database" -d postgres:13.3
 ```
 
-### Выполнить миграции:
+### Perform migrations:
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### Запустить проект:
+### Launch a project:
 ```
 python manage.py runserver
 ```
 
-### Создать суперпользователя:
+### Create a superuser:
 ```
 python manage.py createsuperuser
 ```
 
-## Развертывание проекта на сервера
+## Deploying the project to servers
 
-### Клонирование репозитория на сервер:
+### Cloning the repository to the server:
 ```bash
 git clone git@github.com:NikolayPetrow23/auth_django_test.git
 ```
 
-### Нужно сделать внешний файл конфигурации nginx:
+### Need to make an external nginx configuration file:
 ```
-# Пример есть в репозитории
-# Так же нужно установить сербот для получения сертификата такими командами:
+# There is an example in the repository
+# You also need to install a screenshot to get a certificate with the following commands:
 sudo apt install snapd
 
-# Установка и обновление зависимостей для пакетного менеджера snap.
+# Installing and updating dependencies for the snap package manager.
 sudo snap install core; sudo snap refresh core
-# При успешной установке зависимостей в терминале выведется:
+# If the dependencies are successfully installed, the terminal will display:
 # core 16-2.58.2 from Canonical✓ installed 
 
-# Установка пакета certbot.
+# Installing the certbot package.
 sudo snap install --classic certbot
-# При успешной установке пакета в терминале выведется:
+# Upon successful installation of the package, the terminal will display:
 # certbot 2.3.0 from Certbot Project (certbot-eff✓) installed
 
-# Создание ссылки на certbot в системной директории,
-# чтобы у пользователя с правами администратора был доступ к этому пакету.
+# Creating a link to certbot in the system directory,
+# so that a user with administrator rights has access to this package.
 sudo ln -s /snap/bin/certbot /usr/bin/certbot 
 
-# Запуск сербота
+# Launching a serbot
 sudo certbot --nginx 
 
-# Домен можно взять на этой площадке: https://my.noip.com/
+# The domain can be taken on this site: https://my.noip.com/
 ```
 
-### В корневной папке проекта сбилдить и установить все зависимости и контейнеры:
+### In the root folder of the project, build and install all dependencies and containers:
 ```bash
 docker-compose build
 ```
 
-### Запустить контейнеры:
+### Launch containers:
 ```bash
 docker-compose up
 ```
 
-## Примеры запросов и ответов к API
+## Examples of API requests and responses
 
-### Регистрация
+### Registration
 #### Endpoint
 ```
 POST  /api/v1/users/signup/
 ```
-#### Пример запроса
+#### Request example
 ```
 {
     "usrname": "user",
     "email": "user@mail.ru",
-    "first_name": "Пользователь",
+    "first_name": "User",
     "password": "testuser123"
 }
 ```
-#### Пример ответа
+#### Sample response
 ```
 {
     "usrname": "user",
     "email": "user@mail.ru",
-    "first_name": "Пользователь"
+    "first_name": "User"
 }
 ```
 
-### После этого вам придет сообщение на почту в данном случае на user@mail.ru типа:
+### After that, you will receive an email in this case to user@mail.ru like:
 ```
-Код активации: 123234
+Activation code: 123234
 ```
 
-### Подтвердить почту
+### Confirm Email
 #### Endpoint
 ```
 POST  /api/v1/users/email_verification/
 ```
 
-#### Пример запроса 
+#### Request example
 ```
 {
     "username": "user",
@@ -155,20 +155,20 @@ POST  /api/v1/users/email_verification/
 }
 ```
 
-#### Пример ответа
+#### Sample response
 ```
 {
-    "detail": "Почта успешно подтверждена!"
+    "detail": "Mail has been successfully confirmed!"
 }
 ```
 
-### Аутентификация
+### Authentication
 #### Endpoint
 ```
 POST  /api/v1users/token/
 ```
 
-#### Пример запроса 
+#### Request example
 ```
 {
     "username": "user",
@@ -176,7 +176,7 @@ POST  /api/v1users/token/
 }
 ```
 
-#### Пример ответа
+#### Response example
 ```
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMDM4OTkyMywiaWF0IjoxNzAwMzAzNTIzLCJqdGkiOiI1MTk4NzRiYWVkMGU0OTFhYjhkNmU3NmE3YTNjYjE1NyIsInVzZXJfaWQiOiJuaWtvbGF5cGV0cm93MTNAbWFpbC5ydSJ9.900OjHHSZysHvVE28bbd5hy3D7uym0x36Db6NmiCNfE",
@@ -184,90 +184,90 @@ POST  /api/v1users/token/
 }
 ```
 
-### Узнать свои данные
+### Find out your details
 #### Endpoint.
 ```
 GET  /api/v1/users/me/
 ```
 
-#### Пример ответа
+#### Sample response
 ```
 {
     "username": "user",
-    "first_name": "Пользвоатель",
+    "first_name": "User",
     "email": "user@mail.ru"
 }
 ```
 
-### Изменить свои данные
+### Change your data
 #### Endpoint
 ```
 PATCH  /api/v1/users/me/
 ```
 
-#### Пример запроса.
+#### Request example.
 ```
 {
     "username": "user1"
 }
 ```
 
-#### Пример ответа.
+#### Sample response.
 ```
 {
     "username": "user1",
-    "first_name": "Пользвоатель",
+    "first_name": "User",
     "email": "user@mail.ru"
 }
 ```
 
-### Удалить свою учетную запись
+### Delete your account
 #### Endpoint
 ```
 DELETE  /api/v1/users/me/
 ```
 
-#### Пример ответа.
+#### Sample response.
 ```
 {
-    "detail": "Учетная запись была успешно удалена!"
+    "detail": "The account has been successfully deleted!"
 }
 ```
 
-### Обновление токена
+### Token Update
 #### Endpoint
 ```
 POST /api/v1/token/refresh/
 ```
 
-#### Пример запроса.
+#### Request example.
 ```
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMDM4OTkyMywiaWF0IjoxNzAwMzAzNTIzLCJqdGkiOiI1MTk4NzRiYWVkMGU0OTFhYjhkNmU3NmE3YTNjYjE1NyIsInVzZXJfaWQiOiJuaWtvbGF5cGV0cm93MTNAbWFpbC5ydSJ9.900OjHHSZysHvVE28bbd5hy3D7uym0x36Db6NmiCNfE"
 }
 ```
 
-#### Пример ответа.
+#### Sample response.
 ```
 {
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwMzA4MjA2LCJpYXQiOjE3MDAzMDQ2MDYsImp0aSI6ImMxYzczNTkwYmEzNjQ0MWNhZDEzODQ3NDJlZDYzYmMxIiwidXNlcl9pZCI6Im5pa29sYXlwZXRyb3cxMzIzMTIzQG1haWwucnUifQ.WpmzwBgyL7bgfdD2i1Olo3OehjeRp7g9fnIYrH9DgvI"
 }
 ```
 
-### Проверка токена
+### Token verification
 #### Endpoint
 ```
 POST /api/v1/token/verify/
 ```
 
-#### Пример запроса.
+#### Request example.
 ```
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwMzA4MjA2LCJpYXQiOjE3MDAzMDQ2MDYsImp0aSI6ImMxYzczNTkwYmEzNjQ0MWNhZDEzODQ3NDJlZDYzYmMxIiwidXNlcl9pZCI6Im5pa29sYXlwZXRyb3cxMzIzMTIzQG1haWwucnUifQ.WpmzwBgyL7bgfdD2i1Olo3OehjeRp7g9fnIYrH9DgvI"
 }
 ```
 
-#### Пример ответа.
+#### Sample response.
 ```
 {
     "detail": "Token is valid"

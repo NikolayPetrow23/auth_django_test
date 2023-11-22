@@ -10,7 +10,7 @@ from users.utils import generate_otp_code
 @shared_task
 def send_email_verification(user_id: int):
     """
-    Функция отправки соощения с OTP-кодом, с помощью библиотеки Celery.
+    The function of sending a message with an OTP code, using the Celery library.
     """
     user = User.objects.get(id=user_id)
     if OTP.objects.filter(user=user).exists():

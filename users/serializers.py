@@ -7,7 +7,7 @@ from users.tasks import send_email_verification
 
 class SignUpUserSerializer(serializers.ModelSerializer):
     """
-    Сериалайзер регистрации пользователей.
+    User registration serializer.
     """
     password = serializers.CharField(write_only=True)
 
@@ -26,7 +26,7 @@ class SignUpUserSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    Сериалайзер для работы с пользователями.
+    Serializer for working with users.
     """
     class Meta:
         model = User
@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class EmailVerificationSerializer(serializers.Serializer):
     """
-    Сериалайзер проверки OTP-кода.
+    Serializer for checking the OTP code.
     """
     username = serializers.CharField()
     otp_code = serializers.CharField()

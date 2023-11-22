@@ -3,6 +3,6 @@ import secrets
 
 def generate_otp_code() -> int:
     """
-    Функция генерации случайного шестизначного OTP-кода.
+    The function of generating a random six-digit OTP code.
     """
     return secrets.randbelow(900000) + 100000

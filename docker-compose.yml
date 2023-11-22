@@ -21,7 +21,6 @@ services:
       - "6379:6379"
 
   backend:
-#    image: nikolay2310/auth_user_test:latest
     build:
       context: .
     command: ["docker/app.sh"]
@@ -33,7 +32,6 @@ services:
       - redis
 
   celery:
-#    image: nikolay2310/auth_user_test:latest
     build:
       context: .
     container_name: test_task_celery

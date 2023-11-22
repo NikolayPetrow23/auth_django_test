@@ -3,7 +3,7 @@
 Test task.
 
 ### About the project
-The project is a system of registration, authentication and authorization.
+This project is a system of registration, authentication and authorization.
 
 ### The project is located at: https://testauth.ddns.net/
 
